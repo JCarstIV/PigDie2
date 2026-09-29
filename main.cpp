@@ -1,14 +1,6 @@
 #include <iostream>
-#include <random>
-//using namespace std;
-// I'm doing it without the namespace since it visually shows me where all the outputs are.
+#include "DIE.h"
 
-// Build your solution starting from this code.
-//Most of the code I originally did is commented out, but it's still there.
-//Extra things added:
-//Try inputting an 'o' after the game ends
-//Try beating the game in one single turn.
-//Added a way to adjust the score you have to reach (hopefully)
 
 struct GameState {
     char choice;
@@ -18,54 +10,6 @@ struct GameState {
     bool game_over = false;
     bool turn_over = false;
     char ee;
-};
-
-class Die {
-private: //learning, not needed in a class
-    int m_value;
-    int m_numOfSides;
-
-public:
-
-    Die() {
-        m_numOfSides = 6;
-        setValue();
-    }
-
-    //conditional changing of variable
-    void set_numOfSides(int numOfSides) {
-        switch (numOfSides) {
-            case 4:
-                m_numOfSides = 4;
-                break;
-            case 6:
-                m_numOfSides = 6;
-                break;
-            case 8:
-                m_numOfSides = 8;
-                break;
-            default:
-                m_numOfSides = 6;
-        }
-
-    }
-    int getNumOfSides() {
-        return m_numOfSides;
-    }
-
-    //Set private thing
-    void setValue() {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(1, m_numOfSides);
-        m_value = dis(gen);
-    }
-
-    //Get private thing
-    int getValue() {
-        return m_value;
-        //put rules for accessing data here, not in setting
-    }
 };
 
 void roll(GameState &gs);
@@ -112,16 +56,16 @@ void roll(GameState &gs) {
 
     Die myDie; // calls default values
     //myDie.setValue();
-    std::cout << "Die: " << myDie.getValue();
-    if (myDie.getValue() == 1) {
+    std::cout << "Die: " << myDie.getDieValue();
+    if (myDie.getDieValue() == 1) {
         std::cout << std::endl << "Rolled a 1. Lost turn score." << std::endl;
         gs.score_this_turn = 0;
         gs.turn_over = true;
     } else {
-        gs.score_this_turn += myDie.getValue();
+        gs.score_this_turn += myDie.getDieValue();
         std::cout << " - Current turn score: " << gs.score_this_turn << std::endl;
     }
-    
+
 }
 
 void hold(GameState &gs) {

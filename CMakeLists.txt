@@ -3,4 +3,9 @@ project(PigDie2)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(PigDie2 main.cpp)
+include_directories(.)
+
+add_executable(PigDie2
+        main.cpp
+        DIE.h
+        DIE.cpp)
